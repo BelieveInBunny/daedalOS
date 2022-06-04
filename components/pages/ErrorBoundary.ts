@@ -25,7 +25,12 @@ export class ErrorBoundary extends Component<
   public render(): React.ReactNode {
     const { hasError } = this.state;
 
-    if (hasError && !("__REACT_DEVTOOLS_GLOBAL_HOOK__" in window)) {
+    if (
+      hasError &&
+      !("__REACT_DEVTOOLS_GLOBAL_HOOK__" in window) &&
+      !("DEBUG" in window) &&
+      !window.location.search.endsWith("DEBUG")
+    ) {
       window.location.reload();
 
       // eslint-disable-next-line unicorn/no-null
